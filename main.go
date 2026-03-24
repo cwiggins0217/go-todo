@@ -1,18 +1,11 @@
 package main
 
-import (
-	"bufio"
-	"fmt"
-	"os"
-)
+import "github.com/cwiggins0217/go-todo/internal"
 
 func main() {
-	file, _ := os.Open("/path/to/filename")
-	fileScanner := bufio.NewScanner(file)
-	lineCount := 0
-	for fileScanner.Scan() {
-		lineCount++
-	}
-
-	fmt.Println("number of lines:", lineCount)
+	todos := internal.Todos{}
+	todos.Add("buy milk", "buy me some milk")
+	todos.Add("buy bread", "buy me some bread")
+	todos.Toggle(0)
+	todos.Print()
 }

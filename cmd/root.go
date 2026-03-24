@@ -20,9 +20,9 @@ func addTodo() {
 }
 
 func init() {
-	rootCmd.Flags().BoolVarP(&customId, "custonId", false, "give todo a custom Id")
-	rootCmd.Flags().BoolVarP(&customId, "custonId", false, "give todo a custom Id")
-	rootCmd.Flags().BoolVarP(&customId, "custonId", false, "give todo a custom Id")
+	rootCmd.Flags().BoolVarP(&customId, "customId", false, "give todo a custom Id")
+	rootCmd.Flags().BoolVarP(&customId, "customId", false, "give todo a custom Id")
+	rootCmd.Flags().BoolVarP(&customId, "customId", false, "give todo a custom Id")
 }
 
 func customId() {
