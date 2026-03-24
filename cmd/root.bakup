@@ -2,6 +2,7 @@ package cmd
 
 import "github.com/spf13/cobra"
 
+// cobra.Command is a struct
 var rootCmd = &cobra.Command{
 	Use:   "go-todo",
 	Short: "A stupid todo app in go",

@@ -12,7 +12,6 @@ import (
 
 type Todo struct {
 	Title       string
-	Description string
 	Id          int
 	Completed   bool
 	CreatedAt   time.Time
@@ -21,19 +20,18 @@ type Todo struct {
 
 type Todos []Todo
 
-func (todos *Todos) Add(title string, description string) {
+func (todos *Todos) Add(title string) {
 	todo := Todo{
-		Title:       title,
-		Description: description,
-		Id:          0, //TODO fix this to include the index of todos array
-		Completed:   false,
-		CreatedAt:   time.Now(),
+		Title:     title,
+		Id:        0, //TODO fix this to include the index of todos array
+		Completed: false,
+		CreatedAt: time.Now(),
 	}
 
 	*todos = append(*todos, todo)
 }
 
-func (todos *Todos) ValidateIndex(index int) error {
+func (todos *Todos) validateIndex(index int) error {
 	if index < 0 || index >= len(*todos) {
 		err := errors.New("Invalid index")
 		fmt.Println(err)
@@ -46,7 +44,7 @@ func (todos *Todos) ValidateIndex(index int) error {
 func (todos *Todos) Delete(id int) error {
 	t := *todos
 
-	if err := t.ValidateIndex(id); err != nil {
+	if err := t.validateIndex(id); err != nil {
 		return err
 	}
 
@@ -59,7 +57,7 @@ func (todos *Todos) Delete(id int) error {
 func (todos *Todos) Toggle(index int) error {
 	t := *todos
 
-	if err := t.ValidateIndex(index); err != nil {
+	if err := t.validateIndex(index); err != nil {
 		return err
 	}
 
@@ -78,7 +76,7 @@ func (todos *Todos) Toggle(index int) error {
 func (todos *Todos) Edit(index int, title string) error {
 	t := *todos
 
-	if err := t.ValidateIndex(index); err != nil {
+	if err := t.validateIndex(index); err != nil {
 		return err
 	}
 
@@ -90,7 +88,7 @@ func (todos *Todos) Edit(index int, title string) error {
 func (todos *Todos) Print() {
 	table := table.New(os.Stdout)
 	table.SetRowLines(false)
-	table.SetHeaders("ID", "Title", "Desc", "Created", "Completed", "Completed At")
+	table.SetHeaders("ID", "Title", "Created", "Completed", "Completed At")
 	for index, t := range *todos {
 		completed := "❌"
 		completedAt := ""
@@ -103,7 +101,7 @@ func (todos *Todos) Print() {
 		}
 
 		table.AddRow(
-			strconv.Itoa(index), t.Title, t.Description,
+			strconv.Itoa(index), t.Title,
 			t.CreatedAt.Format(time.RFC1123), completed, completedAt)
 	}
 
